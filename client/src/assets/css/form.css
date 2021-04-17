@@ -1,0 +1,113 @@
+.signForm
+{
+    padding: 150px 0px;
+    text-align: center;
+    max-width: 1366px;
+    margin: 0px auto;
+}
+
+.signForm form > div,
+.signForm form > button
+{
+    width: 100%;
+    margin-top: 20px;
+}
+
+.signForm form > button
+{
+    padding: 11px;  
+}
+
+.signForm .socialLogin > button
+{
+    padding: 11px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.divider
+{
+    display: flex;
+    margin: 17px 0px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.divider:before,
+.divider:after 
+{
+    content: "";
+    flex: 1 1;
+    border-bottom: 1px solid #000;
+    margin: auto;
+}
+
+.bold
+{
+    font-size: 20px;
+    font-weight: 500;
+}
+@media (max-width: 600px)
+{
+    .signForm
+    {
+        padding:70px 0px 100px 0px;
+    }
+}
+
+/* form .row .col-sm-6 > div
+{
+    width: 100%;
+} */
+
+.outlineBox
+{
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+
+.boxHead
+{
+    border-bottom: 1px solid #ccc;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.boxBody
+{
+    padding: 30px 20px 40px 20px;
+}
+
+.boxBody label
+{
+    font-size: 15px;
+    margin-top: 20px;
+    text-align: left;
+    margin-bottom: 0px;
+}
+
+
+.boxBody input,
+.boxBody select
+{
+    margin-top: 3px !important;
+}
+
+.boxBody span.red
+{
+    color: red;
+}
+
+.boxBody > div
+{
+    display: flex;
+    flex-direction: column;
+}
+
+textarea
+{
+    min-height: 120px;
+}

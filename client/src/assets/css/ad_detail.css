@@ -1,0 +1,79 @@
+.ad_detail
+{
+    padding: 50px 30px 130px 30px;
+    max-width: 1300px;
+}
+
+.ad_img
+{
+    height: 320px;
+    width: 100%;
+    border-radius: 2px;
+    background: #000;
+}
+
+.ad_img img,
+.profileImg img
+{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.outBox
+{
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    padding: 30px 20px;
+}
+
+.outBox .sBt
+{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-top: 1px solid #ccc;
+    padding-top: 15px;
+}
+
+.profileImg
+{
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.proMain
+{
+    align-items: center;
+}
+
+.flexEnd
+{
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}
+
+@media (max-width: 600px)
+{
+    .ad_detail {
+        padding: 20px 10px !important;
+    }
+
+    .ad_img {
+        height: 200px;
+    }
+
+    .boxBody {
+        padding: 0px 5px 30px 5px;
+    }
+
+    .boxBody .mt-0
+    {
+        margin-top: 20px !important;
+    }
+}

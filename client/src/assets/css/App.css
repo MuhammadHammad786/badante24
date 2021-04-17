@@ -1,0 +1,381 @@
+*
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.wrapper
+{
+  margin: 80px 0px;
+}
+
+
+.cb5aa2e9b
+{
+  display: none !important;
+}
+
+.css-1kn7tn9-MuiTypography-root {
+  font-size: 1.5rem !important;
+  margin-top: 20px !important;
+}
+
+.noFound
+{
+  margin: 50px;
+}
+
+a
+{
+  cursor: pointer !important;
+}
+
+.emptyPage
+{
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.row
+{
+  margin: 0px !important;
+}
+
+.bold
+{
+  font-weight: bold !important;
+  font-size: 16px !important;
+  color: #000;
+}
+
+.loc
+{
+  color: #555 !important;
+}
+
+/* card css */
+.cardMain
+{
+  max-width: 1250px;
+  margin: 20px auto;
+}
+
+.AdBox
+{
+  border: 1px solid #ccc;
+  margin-top: 30px;
+  position: relative;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.AdImg
+{
+  width: 100%;
+  height: 200px;
+}
+
+.AdImg img
+{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.iconBtn
+{
+  box-shadow: 5px 5px 20px 1px rgb(0 0 0 / 10%);
+  position: absolute !important;
+  top: 10px;
+  right: 10px;
+  background: #fff !important;
+}
+
+.AdDesc
+{
+  padding: 10px 15px;
+}
+
+.cardMain .col-sm-3 a:hover
+{
+  text-decoration: none;
+}
+
+/* navbar */
+.navbar
+{
+  padding: 10px 40px !important;
+  background-color: #fff !important;
+  width: 100%;
+  z-index: 2;
+  border-bottom: 2px solid #131A22;
+  box-shadow: 5px 5px 20px 1px rgb(0 0 0 / 10%);
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar .nav-link,
+.navbar .navbar-brand
+{
+  color: #000 !important;
+}
+
+.navbar .nav-link
+  {
+    margin-left: 15px;
+  }
+
+#navbarNavDropdown
+{
+  justify-content: flex-end;
+}
+
+.navbar-nav {
+  flex-direction: row !important;
+}
+
+
+/* footer */
+.footer
+{
+  background: #131A22;
+  color: #dee1f8;
+  padding: 50px  80px;
+}
+
+.footer .subHead,
+.footer .logo
+{
+  color: #fff;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.footer a
+{
+  color: #dee1f8;
+  margin-left: 10px;
+}
+
+.footer a:hover
+{
+  color: #f0f1f8;
+}
+
+.footer .links > div
+{
+  margin-top: 5px;
+}
+
+.footer .row > div
+{
+  display: flex;
+  flex-direction: column;
+}
+
+.justifyCenter
+{
+  justify-content: center;
+}
+
+
+.footer .justifyCenter
+{
+  align-items: center;
+}
+
+.copyRight
+{
+  display: flex;
+  justify-content: center;
+  color: #dee1f8;
+  border-top: 1px solid #dee1f8;
+  background: #131A22;
+  padding-top: 15px;
+
+}
+
+/* banner css */
+.banner
+{
+  background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6) ),url(../images/banner.jpg);
+  height: 90vh;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: top;
+  background-attachment: fixed;
+  background-size: cover;
+  margin-top: 0px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.bannerCap
+{
+  padding-left: 40px !important;
+}
+
+/* form */
+.form
+{
+  background: #fff;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  border-radius: 5px;
+  color: #000;
+  text-align: center;
+  box-shadow: 5px 5px 20px 1px rgb(0 0 0 / 30%);
+}
+
+.form form > div,
+.form form > button
+{
+  width: 100%;
+  margin-top: 20px;
+}
+
+.form button
+{
+  padding: 10px !important;
+}
+
+.MuiGridListTile-root
+{
+  width: 23% !important;
+  margin: 30px 5px;
+  height: 230px !important;
+  min-width: 220px;
+}
+
+.MuiGridList-root 
+{
+  justify-content: center;
+  max-width: 1300px;
+
+}
+
+.pagination
+{
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+/* filters */
+.filters
+{
+  background: #fff;
+  border-radius: 50px;
+  box-shadow: 5px 5px 20px 1px rgb(0 0 0 / 10%);
+  width: 100%;
+  margin-top: 50px !important;
+  padding: 10px;
+}
+
+.filters div > div
+{
+  width: 100%;
+}
+
+.filters button
+{
+  width: 100%;
+  padding: 14px;
+}
+
+.bgFFF
+{
+  background: #fff;
+}
+
+
+@media (min-width: 600px)
+{
+  .MuiToolbar-regular {
+      min-height: unset !important;
+  }
+}
+
+@media (max-width: 600px)
+{
+  .mbNone
+{
+  display: none !important;
+}
+  .footer
+  {
+    padding: 50px 10px;
+  }
+  .footer .justifyCenter {
+    align-items: flex-start;
+  }
+
+  .footer .row > div {
+    margin-top: 20px;
+  }
+
+  .banner .form
+  {
+    display: none;
+  }
+
+  .banner
+  {
+    height: 60vh;
+    
+  }
+
+  .bannerCap {
+    padding-left: 20px !important;
+  }
+
+  .bannerCap h1
+  {
+    font-size: 30px;
+  }
+
+  .navbar {
+    padding: 10px!important;
+  }
+
+  .navbar .nav-link
+  {
+    margin-left: 10px;
+  }
+
+  .filters {
+    border-radius: 5px;
+    padding: 20px 0px;
+    position: relative;
+    bottom: 60px;
+    margin-top: 0px !important;
+  }
+
+  .filters .row > div
+  {
+    margin-top: 12px;
+  }
+
+  .makeStyles-root-6
+  {
+    padding-top: 0px !important;
+  }
+
+  .MuiGridListTile-root
+{
+  width: 45% !important;
+  min-width: unset;
+  margin: 4px !important;
+  height: 180px !important;
+}
+}
+
+.pagination
+{
+  margin-bottom: 100px;
+}
