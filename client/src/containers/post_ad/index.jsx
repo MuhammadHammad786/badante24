@@ -44,7 +44,7 @@ function Posting_form () {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        axios.post("http://localhost:4000/create_ad", Ad);
+        axios.post("https://badanti.herokuapp.com/create_ad", Ad);
         history.push("/");
         alert("Ad Posted Successfully");
     }

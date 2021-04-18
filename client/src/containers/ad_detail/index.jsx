@@ -19,7 +19,7 @@ function Ad_detail() {
     // ReceivedData
     const [Ad, setAd] = useState([]);
     useEffect(async () => {
-        const result = await axios.get(`http://localhost:4000/view_ad/${id}`);
+        const result = await axios.get(`https://badanti.herokuapp.com/view_ad/${id}`);
         setAd(result.data);
     },[]);
 

@@ -25,7 +25,7 @@ const Profile = () => {
   // ReceivedData
   const [proAd, setproAd] = useState([]);
   useEffect(async () => {
-      const result = await axios.get(`http://localhost:4000/profile/${user_id}`);
+      const result = await axios.get(`https://badanti.herokuapp.com/profile/${user_id}`);
       setproAd(result.data);
   },[]);
   return (
