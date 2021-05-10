@@ -6,10 +6,22 @@ import {
   Typography
 } from '@material-ui/core';
 import { indigo } from '@material-ui/core/colors';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 
-const TotalProfit = (props) => (
-  <Card {...props}>
+
+function TotalProfit() {
+
+  const [items, setItems] = useState([]);
+
+  useEffect(async () => {
+    const result = await axios.get("http://localhost:4000/rejectedAds/");
+    setItems(result.data);
+  }, []);
+
+  return(
+    <Card>
     <CardContent>
       <Grid
         container
@@ -22,13 +34,13 @@ const TotalProfit = (props) => (
             gutterBottom
             variant="h6"
           >
-            TOTAL EARNING
+            Rejected Ads
           </Typography>
           <Typography
             color="textPrimary"
             variant="h3"
           >
-            $23,200
+            {items.length}
           </Typography>
         </Grid>
         <Grid item>
@@ -39,12 +51,13 @@ const TotalProfit = (props) => (
               width: 56
             }}
           >
-            <AttachMoneyIcon />
+            <InsertChartIcon />
           </Avatar>
         </Grid>
       </Grid>
     </CardContent>
   </Card>
-);
+  )
+}
 
 export default TotalProfit;

@@ -1,5 +1,4 @@
 import moment from 'moment';
-import { v4 as uuid } from 'uuid';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Box,
@@ -21,164 +20,345 @@ import {
   BrowserRouter as Router,
   NavLink
 } from "react-router-dom";
+import { getTodos } from "../../../api";
+import React, { useState, useEffect } from "react";
+import CircularProgress from '@material-ui/core/CircularProgress';
+import IconButton from "@material-ui/core/IconButton";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import Swal from 'sweetalert2';
+import { ToastContainer, toast } from 'react-toastify';
+import $ from "jquery";
+import Popper from "popper.js";
+import axios from "axios";
 
-const orders = [
-  {
-    id: uuid(),
-    location: 'Italy',
-    amount: 30.5,
-    customer: {
-      name: 'Ekaterina Tankova'
-    },
-    ageRange : '18-20 years',
-    service_desc : "xyz",
-    gender : "Female",
-    createdAt: 1555016400000,
-    status: 'pending'
-  },
-  {
-    id: uuid(),
-    location: 'Italy',
-    amount: 25.1,
-    customer: {
-      name: 'Cao Yu'
-    },
-    ageRange : '18-20 years',
-    service_desc : "xyz",
-    gender : "Female",
-    createdAt: 1555016400000,
-    status: 'active'
-  },
-  {
-    id: uuid(),
-    location: 'Italy',
-    amount: 32.54,
-    customer: {
-      name: 'Clarke Gillebert'
-    },
-    ageRange : '18-20 years',
-    service_desc : "xyz",
-    gender : "Female",
-    createdAt: 1554670800000,
-    status: 'active'
-  },
-  {
-    id: uuid(),
-    location: 'Italy',
-    amount: 16.76,
-    customer: {
-      name: 'Adam Denisov'
-    },
-    ageRange : '18-20 years',
-    service_desc : "xyz",
-    gender : "Female",
-    createdAt: 1554670800000,
-    status: 'active'
+
+function LatestOrders() {
+
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [DeleteChange, setDeleteChange] = useState(false);
+  const [ApproveChange, setApproveChange] = useState(false);
+  const [RejectChange, setRejectChange] = useState(false);
+
+  useEffect(async () => {
+    const result = await axios.get("http://localhost:4000/");
+    setItems(result.data);
+    setLoading(true);
+  }, []);
+
+  useEffect(async () => {
+    const result = await axios.get("http://localhost:4000/");
+    setItems(result.data);
+    setLoading(true);
+  }, [DeleteChange] || [ApproveChange] || [RejectChange]);
+
+  // delete ad
+  const handleDelete = (Ad_id) => {
+    console.log(Ad_id);
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You are about to delete this Ad. You won't be able to undo this.",
+      icon: 'warning',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      showCloseButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Yes Delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`http://localhost:4000/deleteAd/${Ad_id}`);
+        DeleteNotify();
+        setDeleteChange(true);
+      }
+    })
+
   }
-];
+  // delete ad
+  const handleApprove = (Ad_id) => {
+    console.log(Ad_id);
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You are about to approve this Ad.",
+      icon: 'success',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      showCloseButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Yes Approve it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.get(`http://localhost:4000/approveAd/${Ad_id}`);
+        ApproveNotify();
+        setApproveChange(true);
+      }
+    })
 
-const LatestOrders = (props) => (
-  <Card {...props}>
+  }
+  // delete ad
+  const handleReject = (Ad_id) => {
+    console.log(Ad_id);
 
-    <PerfectScrollbar>
-      <Box sx={{ minWidth: 800 }}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                Location
-              </TableCell>
-              <TableCell>
-                Name
-              </TableCell>
-              <TableCell>
-                Gender
-              </TableCell>
-              <TableCell>
-                Age-range
-              </TableCell>
-              <TableCell>
-                Service Description
-              </TableCell>
-              <TableCell>
-                View
-              </TableCell>
-              <TableCell sortDirection="desc">
-                <Tooltip
-                  enterDelay={300}
-                  title="Sort"
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You are about to reject this Ad.",
+      icon: 'warning',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      showCloseButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Yes Delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.get(`http://localhost:4000/rejectAd/${Ad_id}`);
+        RejectNotify();
+        setRejectChange(true);
+      }
+    })
+
+  }
+
+  //delete notify
+  const DeleteNotify = () => toast.error('🦄 Ad Successfully Delete!', {
+    position: "top-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+  const ApproveNotify = () => toast.success('🦄 Ad Successfully Approved!', {
+    position: "top-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+  const RejectNotify = () => toast.error('🦄 Ad Successfully Rejected!', {
+    position: "top-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+
+
+  var ads;
+  if (items.length > 0) {
+    ads = <>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>
+              Name
+            </TableCell>
+            <TableCell>
+              Location
+            </TableCell>
+            <TableCell>
+              Ad image
+            </TableCell>
+            <TableCell>
+              Phone No.
+            </TableCell>
+            <TableCell>
+              Email
+            </TableCell>
+            <TableCell>
+              Caregiver Type
+            </TableCell>
+            <TableCell>
+              Gender
+            </TableCell>
+            <TableCell>
+              Age-range
+            </TableCell>
+            <TableCell>
+              Service Description
+            </TableCell>
+            <TableCell>
+              View Ad
+            </TableCell>
+            {/* <TableCell sortDirection="desc">
+              <Tooltip
+                enterDelay={300}
+                title="Sort"
+              >
+                <TableSortLabel
+                  active
+                  direction="desc"
                 >
-                  <TableSortLabel
-                    active
-                    direction="desc"
-                  >
-                    Date
-                  </TableSortLabel>
-                </Tooltip>
-              </TableCell>
-              <TableCell>
-                Status
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {orders.map((order) => (
+                  Date
+                </TableSortLabel>
+              </Tooltip>
+            </TableCell> */}
+            <TableCell>
+              Status
+            </TableCell>
+            <TableCell>
+              Action
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {
+            items.map((Ad) => (
               <TableRow
                 hover
-                key={order.id}
+                key={Ad._id}
               >
+
                 <TableCell>
-                  {order.location}
+                  {Ad.name}
                 </TableCell>
                 <TableCell>
-                  {order.customer.name}
+                  {Ad.country}
                 </TableCell>
                 <TableCell>
-                  {order.gender}
+                  <img src={Ad.ad_img} alt="{ad_img}" style={{ "height": "70px", "width": "100px" }} />
                 </TableCell>
                 <TableCell>
-                  {order.ageRange}
+                  {Ad.phone_no}
                 </TableCell>
                 <TableCell>
-                  {order.service_desc}
+                  {Ad.email}
                 </TableCell>
                 <TableCell>
-                  <NavLink to="ad_detail">View</NavLink>
+                  {Ad.caregiver_type}
                 </TableCell>
                 <TableCell>
-                  {moment(order.createdAt).format('DD/MM/YYYY')}
+                  {Ad.gender}
                 </TableCell>
                 <TableCell>
-                  <Chip
-                    color="primary"
-                    label={order.status}
-                    size="small"
-                  />
+                  {Ad.age_range}
+                </TableCell>
+                <TableCell>
+                  {Ad.service_desc}
+                </TableCell>
+                <TableCell>
+                  <NavLink to={`/ad_detail/${Ad._id}`}>View Ad</NavLink>
+                </TableCell>
+                <TableCell>
+                  {Ad.status == 'pending' ?
+                    <>
+                      <Chip
+                        color="warning"
+                        label={Ad.status}
+                        size="small"
+                      />
+                    </>
+                    :
+
+                    Ad.status == 'active' ?
+                      <>
+                        <Chip
+                          color="primary"
+                          label={Ad.status}
+                          size="small"
+                        />
+                      </>
+                      :
+
+                      Ad.status == 'rejected' ?
+                        <>
+                          <Chip
+                            color="secondary"
+                            label={Ad.status}
+                            size="small"
+                          />
+                        </>
+                        :
+
+                        null
+
+                  }
+
+
+                </TableCell>
+                <TableCell>
+                  <IconButton id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                  >
+                    <MoreHorizIcon />
+                  </IconButton>
+
+                  <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <button className="dropdown-item" type="button"
+                      onClick={() => {
+                        handleDelete(Ad._id);
+                      }}
+                    >Delete</button>
+                    <button className="dropdown-item" type="button"
+                      onClick={() => {
+                        handleApprove(Ad._id);
+                      }}
+                    >Approve</button>
+                    <button className="dropdown-item" type="button"
+                      onClick={() => {
+                        handleReject(Ad._id);
+                      }}
+                    >Reject</button>
+                  </div>
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Box>
-    </PerfectScrollbar>
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        p: 2
-      }}
-    >
-      <Button
-        color="primary"
-        endIcon={<ArrowRightIcon />}
-        size="small"
-        variant="text"
+            ))
+          }
+        </TableBody>
+      </Table>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          p: 2
+        }}
       >
-        View all
+        <Button
+          color="primary"
+          endIcon={<ArrowRightIcon />}
+          size="small"
+          variant="text"
+        >
+          View all
       </Button>
-    </Box>
-  </Card>
-  
-);
+      </Box>
+    </>
+
+  } else {
+    ads = <h1 className="mt-3 ml-3">No Ads Found!</h1>
+
+  }
+
+  if (!loading) {
+    return (
+      <div className="row mt-5 mb-5">
+        <div className="col-sm-1 m-auto">
+          <CircularProgress />
+        </div>
+
+      </div>
+    )
+  }
+
+  return (
+    <Card>
+
+      <ToastContainer />
+
+      <PerfectScrollbar>
+        <Box sx={{ minWidth: 800 }}>
+          {ads}
+        </Box>
+      </PerfectScrollbar>
+
+    </Card>
+
+  );
+
+
+}
 
 export default LatestOrders;

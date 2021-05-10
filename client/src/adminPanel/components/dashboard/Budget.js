@@ -9,11 +9,21 @@ import {
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import MoneyIcon from '@material-ui/icons/Money';
 import { red } from '@material-ui/core/colors';
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 
-const Budget = (props) => (
-  <Card
+
+function Budget() {
+  const [items, setItems] = useState([]);
+  
+  useEffect(async () => {
+    const result = await axios.get("http://localhost:4000/");
+    setItems(result.data);
+  }, []);
+
+  return(
+    <Card
     sx={{ height: '100%' }}
-    {...props}
   >
     <CardContent>
       <Grid
@@ -33,7 +43,7 @@ const Budget = (props) => (
             color="textPrimary"
             variant="h3"
           >
-            100
+            { items.length }
           </Typography>
         </Grid>
         <Grid item>
@@ -48,32 +58,11 @@ const Budget = (props) => (
           </Avatar>
         </Grid>
       </Grid>
-      <Box
-        sx={{
-          pt: 2,
-          display: 'flex',
-          alignItems: 'center'
-        }}
-      >
-        <ArrowDownwardIcon sx={{ color: red[900] }} />
-        <Typography
-          sx={{
-            color: red[900],
-            mr: 1
-          }}
-          variant="body2"
-        >
-          12%
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="caption"
-        >
-          Since last month
-        </Typography>
-      </Box>
+
     </CardContent>
   </Card>
-);
+
+  )
+}
 
 export default Budget;

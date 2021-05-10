@@ -11,20 +11,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
-import { ToastContainer, toast } from 'react-toastify';
-import '../../../node_modules/react-toastify/dist/ReactToastify.css';
 
-const notify = () => toast.success('🦄 Ad Successfully Posted!', {
-  position: "top-right",
-  autoClose: 5000,
-  hideProgressBar: false,
-  closeOnClick: true,
-  pauseOnHover: true,
-  draggable: true,
-  progress: undefined,
-  });
 
-function Posting_form() {
+function Edit_ad() {
   const { isAuthenticated } = useAuth0();
 
   let history = useHistory();
@@ -43,39 +32,15 @@ function Posting_form() {
   const [phone_no, setPhone_no] = useState("");
   const [city, setCity] = useState("");
 
-  const [loading, setLoading] = useState(false);
+  const [loading , setLoading] = useState(false);
 
-  const Ad = {
-    name: name,
-    price: price,
-    caregiver_type: caregiver_type,
-    country: country,
-    age_range: age_range,
-    gender: gender,
-    service_desc: service_desc,
-    zip_code: zip_code,
-    phone_no: phone_no,
-    email: email,
-    city: city,
-    ad_img: imgurl,
-    user_id: sessionStorage.getItem("user_id"),
-    user_pic: sessionStorage.getItem("user_pic")
+  if(loading)
+  {
+    history.push(`/Profile/${sessionStorage.getItem("user_id")}`);
   }
-
-  // useEffect( async () => {
-  //   if(imgurl)
-  //   {
-  //     await axios.post("http://localhost:4000/create_ad", Ad);
-  //     notify();
-  //     history.push(`/Profile/${sessionStorage.getItem("user_id")}`);
-  //   }
-
-  // }, [imgurl])
 
 
   const onSubmit = (e) => {
-    e.preventDefault();
-
     const data = new FormData()
     data.append("file", ad_img)
     data.append("upload_preset", "badenti_service")
@@ -90,15 +55,31 @@ function Posting_form() {
         console.log(err);
       })
 
+      const Ad = {
+        name: name,
+        price: price ,
+        caregiver_type: caregiver_type,
+        country: country,
+        age_range: age_range,
+        gender: gender,
+        service_desc: service_desc,
+        zip_code: zip_code,
+        phone_no: phone_no,
+        email: email,
+        city: city,
+        ad_img: imgurl,
+        user_id: sessionStorage.getItem("user_id"),
+        user_pic: sessionStorage.getItem("user_pic")
+      }
+      
+    e.preventDefault();
+    axios.post("http://localhost:4000/edit_ad/:id", Ad);
     setLoading(true);
     setOpen(!open);
-    axios.post("http://localhost:4000/create_ad", Ad);
-    notify();
-    history.push(`/Profile/${sessionStorage.getItem("user_id")}`);
-
   };
 
   const [open, setOpen] = React.useState(false);
+
 
   if (!isAuthenticated) {
     return (
@@ -113,8 +94,6 @@ function Posting_form() {
   }
   return (
     <Fragment>
-
-        <ToastContainer />
       <Backdrop className="Backdrop" open={open} >
         <CircularProgress color="inherit" />
       </Backdrop>
@@ -123,7 +102,7 @@ function Posting_form() {
         <section className="signForm bgFFF">
           <div className="col-sm-9 m-auto">
             <h2 className="logo">Badenti Services</h2>
-            <p className="bold">Post Ad</p>
+            <p className="bold">Edit Ad</p>
             <form onSubmit={(e) => onSubmit(e)} encType="multipart/form-data">
               <div className="outlineBox">
                 <p className="boxHead">General Information</p>
@@ -327,4 +306,4 @@ function Posting_form() {
   );
 }
 
-export default Posting_form;
+export default Edit_ad;

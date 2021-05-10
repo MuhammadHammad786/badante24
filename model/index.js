@@ -16,6 +16,7 @@ const AdSchema = new Schema({
     ad_img : String,
     user_id : String,
     user_pic : String,
+    status : String,
     postDate : {type :Date, default : Date.now },
 });
 

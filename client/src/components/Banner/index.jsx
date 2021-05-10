@@ -29,7 +29,7 @@ function Banner() {
   };
   return (
     <section className="row banner">
-      <div className="col-sm-7 bannerCap">
+      <div className="col-md-7 bannerCap">
         <h1>
           Are you looking for a caregiver near you or a job as a caregiver?
         </h1>
@@ -38,12 +38,12 @@ function Banner() {
           part-time or full-time caregiver
         </p>
       </div>
-      <div className="col-sm-4 m-auto form">
-          <h2 className="subHead">
-              Sign up
-          </h2>
+      <div className="col-md-3 m-auto form">
+        <h5>
+          Register as a Badanti
+        </h5>
         <form className="" Validate autoComplete="on">
-          <TextField id="outlined-basic" className = "mt-2" label="Email" variant="outlined" />
+          <TextField id="outlined-basic" className="mt-2" label="Email" variant="outlined" />
           <TextField id="outlined-basic" label="Name" variant="outlined" />
           <FormControl className="" variant="outlined">
             <InputLabel htmlFor="outlined-adornment-password">
@@ -93,8 +93,8 @@ function Banner() {
               labelWidth={132}
             />
           </FormControl>
-            <Button variant="contained" color="primary">
-                SignUp
+          <Button variant="contained" color="primary">
+            SignUp
             </Button>
         </form>
       </div>

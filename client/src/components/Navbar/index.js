@@ -76,7 +76,7 @@ function Navbar(props) {
       <CssBaseline />
 
       <nav className="navbar navbar-light">
-        <NavLink className="navbar-brand" to="/">Badanti Service</NavLink>
+        <NavLink className="navbar-brand" to="/"> <b>Badanti Service</b> </NavLink>
 
         <div className="">
           <ul className="navbar-nav">

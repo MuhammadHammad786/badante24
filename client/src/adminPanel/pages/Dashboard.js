@@ -46,6 +46,7 @@ const Dashboard = () => (
           >
             <Budget />
           </Grid>
+          
           <Grid
             item
             lg={3}
@@ -53,7 +54,7 @@ const Dashboard = () => (
             xl={3}
             xs={12}
           >
-            <TotalCustomers />
+            <TotalProfit sx={{ height: '100%' }} />
           </Grid>
           <Grid
             item
@@ -71,7 +72,8 @@ const Dashboard = () => (
             xl={3}
             xs={12}
           >
-            <TotalProfit sx={{ height: '100%' }} />
+                        <TotalCustomers />
+
           </Grid>
           <Grid
             item
@@ -83,7 +85,7 @@ const Dashboard = () => (
             <Sales />
           </Grid>
 
-          <Grid
+          {/* <Grid
             item
             lg={12}
             md={12}
@@ -91,7 +93,7 @@ const Dashboard = () => (
             xs={12}
           >
             <LatestOrders />
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
     </Box>

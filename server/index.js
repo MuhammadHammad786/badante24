@@ -44,7 +44,9 @@ app.post('/create_ad', (req, res) => {
         email: req.body.email,
         city: req.body.city,
         user_id: req.body.user_id,
-        user_pic: req.body.user_pic
+		ad_img : req.body.ad_img,
+        user_pic: req.body.user_pic,
+		status : "pending"
 		
 	});
     newAd.save()
@@ -75,7 +77,7 @@ app.get("/view_ad/:id", (req, res) => {
 		.catch((err) => console.log('Err ', err));
 });
 
-// view Ad
+// profile view Ad
 app.get("/profile/:user_id", (req, res) => {
 	const user_id = req.params.user_id;
 	console.log(user_id);
@@ -86,6 +88,81 @@ app.get("/profile/:user_id", (req, res) => {
 		})
 		.catch((err) => console.log('Err ', err));
 });
+
+// home view Ad
+app.get("/home/", (req, res) => {
+		Ad.find( { "status" : "active" } )
+		.then((proAd) => {
+			// Return Array
+			res.json(proAd);
+		})
+		.catch((err) => console.log('Err ', err));
+});
+// pendingAds view Ad
+app.get("/pendingAds/", (req, res) => {
+		Ad.find( { "status" : "pending" } )
+		.then((proAd) => {
+			// Return Array
+			res.json(proAd);
+		})
+		.catch((err) => console.log('Err ', err));
+});
+
+// rejectedAds view Ad
+app.get("/rejectedAds/", (req, res) => {
+		Ad.find( { "status" : "rejected" } )
+		.then((proAd) => {
+			// Return Array
+			res.json(proAd);
+		})
+		.catch((err) => console.log('Err ', err));
+});
+
+// delete ad
+app.delete("/deleteAd/:Ad_id", async (req, res) => {
+	const Ad_id = req.params.Ad_id;
+	console.log(Ad_id);
+	await Ad.findByIdAndRemove(Ad_id).exec()
+	res.send("item deleted",Ad_id)
+
+});
+
+// Reject ad
+app.get("/rejectAd/:Ad_id", async (req, res) => {
+	const Ad_id = req.params.Ad_id;
+	console.log(Ad_id);
+	
+	try{
+		await Ad.findById(Ad_id,(error, AdtoReject) => {
+			AdtoReject.status = "rejected";
+			AdtoReject.save()
+			res.send("updated");
+		})
+	}catch(err)
+	{
+		console.log(err);
+	}
+
+});
+
+// approve ad
+app.get("/approveAd/:Ad_id", async (req, res) => {
+	const Ad_id = req.params.Ad_id;
+	console.log(Ad_id);
+	
+	try{
+		await Ad.findById(Ad_id,(error, AdtoApprove) => {
+			AdtoApprove.status = "active";
+			AdtoApprove.save()
+			res.send("updated");
+		})
+	}catch(err)
+	{
+		console.log(err);
+	}
+
+});
+
 
 if(process.env.NODE_ENV=="production")
 {

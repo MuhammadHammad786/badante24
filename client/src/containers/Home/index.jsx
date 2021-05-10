@@ -6,14 +6,17 @@ import React from 'react';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import TitlebarGridList from '../../components/Card/index.jsx';
 import Filters from '../../components/filters/index.jsx';
+import './home.css';
 
 const Home = () => (
   <>
+        <div className="home">
         <Navbar fixed="top"/>
         <Banner/>
         <Filters/>
         <TitlebarGridList/>
         <Footer/>
+        </div>
   </>
 );
 

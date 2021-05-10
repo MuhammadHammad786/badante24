@@ -1,0 +1,24 @@
+.home .navbar {
+  background: transparent !important;
+  position: absolute;
+  border: none;
+  box-shadow: none;
+}
+
+.home .navbar .nav-link,
+.home .navbar .navbar-brand {
+  color: #fff !important;
+}
+
+@media (max-width: 600px) {
+  .home .navbar {
+    background: #fff !important;
+  }
+  .home .navbar .nav-link,
+  .home .navbar .navbar-brand {
+    color: #000 !important;
+  }
+  .bgFFF {
+    margin-bottom: 0px !important;
+  }
+}

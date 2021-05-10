@@ -19,7 +19,7 @@ export default function Filters() {
   };
 
   return (
-    <div className="row bgFFF">
+    <div className="row bgFFF mb-5">
       <div className="col-sm-9 m-auto">
         <div className="filters">
           <div className="row">
@@ -87,8 +87,8 @@ export default function Filters() {
               </FormControl>
             </div>
             <div className="col-sm-3">
-                <Button variant="contained" color="primary">
-                    Search
+              <Button variant="contained" color="primary">
+                Search
                 </Button>
             </div>
           </div>

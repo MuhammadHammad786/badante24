@@ -10,8 +10,11 @@ import { green } from '@material-ui/core/colors';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import PeopleIcon from '@material-ui/icons/PeopleOutlined';
 
-const TotalCustomers = (props) => (
-  <Card {...props}>
+
+function TotalCustomers() {
+
+  return(
+    <Card>
     <CardContent>
       <Grid
         container
@@ -45,7 +48,7 @@ const TotalCustomers = (props) => (
           </Avatar>
         </Grid>
       </Grid>
-      <Box
+      {/* <Box
         sx={{
           alignItems: 'center',
           display: 'flex',
@@ -68,9 +71,11 @@ const TotalCustomers = (props) => (
         >
           Since last month
         </Typography>
-      </Box>
+      </Box> */}
     </CardContent>
   </Card>
-);
 
+  )
+
+}
 export default TotalCustomers;
