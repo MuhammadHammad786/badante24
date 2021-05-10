@@ -11,6 +11,9 @@ import $ from "jquery";
 import Popper from "popper.js";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { baseURL } from "../../api";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 export default function AdCom() {
@@ -24,13 +27,13 @@ export default function AdCom() {
     const [change, setChange] = useState(false);
     
     useEffect(async () => {
-        const result = await axios.get(`http://localhost:4000/profile/${user_id}`);
+        const result = await axios.get(`${baseURL}/profile/${user_id}`);
         setproAd(result.data);
         setLoading(true);
     }, []);
 
     useEffect(async () => {
-        const result = await axios.get(`http://localhost:4000/profile/${user_id}`);
+        const result = await axios.get(`${baseURL}/profile/${user_id}`);
         setproAd(result.data);
         setLoading(true);
     }, [change]);
@@ -50,7 +53,7 @@ export default function AdCom() {
             confirmButtonText: 'Yes Delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:4000/deleteAd/${Ad_id}`).then(() => {
+                axios.delete(`${baseURL}/deleteAd/${Ad_id}`).then(() => {
                     setproAd(
                         proAd.filter((Ad) => {
                             return Ad._id != Ad_id;

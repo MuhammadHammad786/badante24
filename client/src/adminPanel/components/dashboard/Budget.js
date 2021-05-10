@@ -11,13 +11,13 @@ import MoneyIcon from '@material-ui/icons/Money';
 import { red } from '@material-ui/core/colors';
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-
+import { baseURL } from "../../../api";
 
 function Budget() {
   const [items, setItems] = useState([]);
   
   useEffect(async () => {
-    const result = await axios.get("http://localhost:4000/");
+    const result = await axios.get(`${baseURL}/`);
     setItems(result.data);
   }, []);
 

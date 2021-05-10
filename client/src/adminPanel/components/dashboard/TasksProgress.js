@@ -11,6 +11,7 @@ import { orange } from '@material-ui/core/colors';
 import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { baseURL } from "../../../api";
 
 
 function TasksProgress() {
@@ -18,7 +19,7 @@ function TasksProgress() {
   const [items, setItems] = useState([]);
 
   useEffect(async () => {
-    const result = await axios.get("http://localhost:4000/pendingAds/");
+    const result = await axios.get(`${baseURL}/pendingAds/`);
     setItems(result.data);
   }, []);
 

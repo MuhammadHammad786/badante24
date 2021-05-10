@@ -5,10 +5,11 @@ import Footer from "../../components/footer/index.jsx";
 import React, { Fragment, useState, useEffect } from "react";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ShareOutlinedIcon from '@material-ui/icons/ShareOutlined';
-import { getAd } from "../../api";
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { baseURL } from "../../api";
+
 
 function Ad_detail() {
 
@@ -19,7 +20,7 @@ function Ad_detail() {
     const [loading , setLoading] = useState(false);
     const [Ad, setAd] = useState([]);
     useEffect(async () => {
-        const result = await axios.get(`http://localhost:4000/view_ad/${id}`);
+        const result = await axios.get(`${baseURL}/view_ad/${id}`);
         setAd(result.data);
         setLoading(true);
 

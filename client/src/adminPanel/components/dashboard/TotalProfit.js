@@ -9,6 +9,7 @@ import { indigo } from '@material-ui/core/colors';
 import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { baseURL } from "../../../api";
 
 
 function TotalProfit() {
@@ -16,7 +17,7 @@ function TotalProfit() {
   const [items, setItems] = useState([]);
 
   useEffect(async () => {
-    const result = await axios.get("http://localhost:4000/rejectedAds/");
+    const result = await axios.get(`${baseURL}/rejectedAds/`);
     setItems(result.data);
   }, []);
 

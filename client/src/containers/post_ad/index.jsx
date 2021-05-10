@@ -10,19 +10,7 @@ import { useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { makeStyles } from '@material-ui/core/styles';
-import { ToastContainer, toast } from 'react-toastify';
-import '../../../node_modules/react-toastify/dist/ReactToastify.css';
-
-const notify = () => toast.success('🦄 Ad Successfully Posted!', {
-  position: "top-right",
-  autoClose: 5000,
-  hideProgressBar: false,
-  closeOnClick: true,
-  pauseOnHover: true,
-  draggable: true,
-  progress: undefined,
-  });
+import { baseURL } from "../../api";
 
 function Posting_form() {
   const { isAuthenticated } = useAuth0();
@@ -62,15 +50,14 @@ function Posting_form() {
     user_pic: sessionStorage.getItem("user_pic")
   }
 
-  // useEffect( async () => {
-  //   if(imgurl)
-  //   {
-  //     await axios.post("http://localhost:4000/create_ad", Ad);
-  //     notify();
-  //     history.push(`/Profile/${sessionStorage.getItem("user_id")}`);
-  //   }
+  useEffect(() => {
+    if (imgurl) {
+      axios.post(`${baseURL}/create_ad`, Ad);
+      history.push(`/Profile/${sessionStorage.getItem("user_id")}`);
+    }
 
-  // }, [imgurl])
+  }, [imgurl])
+
 
 
   const onSubmit = (e) => {
@@ -92,9 +79,6 @@ function Posting_form() {
 
     setLoading(true);
     setOpen(!open);
-    axios.post("http://localhost:4000/create_ad", Ad);
-    notify();
-    history.push(`/Profile/${sessionStorage.getItem("user_id")}`);
 
   };
 
@@ -113,8 +97,6 @@ function Posting_form() {
   }
   return (
     <Fragment>
-
-        <ToastContainer />
       <Backdrop className="Backdrop" open={open} >
         <CircularProgress color="inherit" />
       </Backdrop>

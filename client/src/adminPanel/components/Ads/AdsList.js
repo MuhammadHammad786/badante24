@@ -27,9 +27,12 @@ import IconButton from "@material-ui/core/IconButton";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import Swal from 'sweetalert2';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import $ from "jquery";
 import Popper from "popper.js";
 import axios from "axios";
+import { baseURL } from "../../../api";
+
 
 
 function LatestOrders() {
@@ -41,13 +44,13 @@ function LatestOrders() {
   const [RejectChange, setRejectChange] = useState(false);
 
   useEffect(async () => {
-    const result = await axios.get("http://localhost:4000/");
+    const result = await axios.get(`${baseURL}/`);
     setItems(result.data);
     setLoading(true);
   }, []);
 
   useEffect(async () => {
-    const result = await axios.get("http://localhost:4000/");
+    const result = await axios.get(`${baseURL}/`);
     setItems(result.data);
     setLoading(true);
   }, [DeleteChange] || [ApproveChange] || [RejectChange]);
@@ -67,7 +70,7 @@ function LatestOrders() {
       confirmButtonText: 'Yes Delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://localhost:4000/deleteAd/${Ad_id}`);
+        axios.delete(`${baseURL}/deleteAd/${Ad_id}`);
         DeleteNotify();
         setDeleteChange(true);
       }
@@ -88,7 +91,7 @@ function LatestOrders() {
       confirmButtonText: 'Yes Approve it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.get(`http://localhost:4000/approveAd/${Ad_id}`);
+        axios.get(`${baseURL}/approveAd/${Ad_id}`);
         ApproveNotify();
         setApproveChange(true);
       }
@@ -110,7 +113,7 @@ function LatestOrders() {
       confirmButtonText: 'Yes Delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.get(`http://localhost:4000/rejectAd/${Ad_id}`);
+        axios.get(`${baseURL}/rejectAd/${Ad_id}`);
         RejectNotify();
         setRejectChange(true);
       }
@@ -128,6 +131,7 @@ function LatestOrders() {
     draggable: true,
     progress: undefined,
   });
+
   const ApproveNotify = () => toast.success('🦄 Ad Successfully Approved!', {
     position: "top-right",
     autoClose: 2000,
@@ -137,6 +141,7 @@ function LatestOrders() {
     draggable: true,
     progress: undefined,
   });
+  
   const RejectNotify = () => toast.error('🦄 Ad Successfully Rejected!', {
     position: "top-right",
     autoClose: 2000,

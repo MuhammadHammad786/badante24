@@ -11,7 +11,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
-
+import { baseURL } from "../../api";
 
 function Edit_ad() {
   const { isAuthenticated } = useAuth0();
@@ -73,7 +73,7 @@ function Edit_ad() {
       }
       
     e.preventDefault();
-    axios.post("http://localhost:4000/edit_ad/:id", Ad);
+    axios.post(`${baseURL}/edit_ad/:id`, Ad);
     setLoading(true);
     setOpen(!open);
   };

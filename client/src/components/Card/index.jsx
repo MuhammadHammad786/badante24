@@ -6,13 +6,14 @@ import { Link } from "react-router-dom";
 import PersonPinCircleOutlinedIcon from '@material-ui/icons/PersonPinCircleOutlined';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from "axios";
+import { baseURL } from "../../api";
 
 export default function TitlebarGridList() {
   const [items, setItems] = useState([]);
   const [loading , setLoading] = useState(false);
   
   useEffect(async () => {
-      const result = await axios.get("http://localhost:4000/home");
+      const result = await axios.get(`${baseURL}/home`);
       setItems(result.data);
       setLoading(true);
   }, []);
