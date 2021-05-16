@@ -5,7 +5,7 @@
   "main": "./server/index.js",
   "scripts": {
     "devStart": "nodemon ./server/index.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install"
   },
   "keywords": [],
   "author": "",
