@@ -13,7 +13,6 @@ const Home = () => (
         <div className="home">
         <Navbar fixed="top"/>
         <Banner/>
-        <Filters/>
         <TitlebarGridList/>
         <Footer/>
         </div>

@@ -22,6 +22,9 @@ import {
   Users as UsersIcon
 } from 'react-feather';
 import NavItem from './NavItem';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { useHistory } from 'react-router-dom';
+
 
 const user = {
   avatar: '/static/images/avatars/admin.png',
@@ -49,11 +52,21 @@ const items = [
     href: '/adminPanel/settings',
     icon: SettingsIcon,
     title: 'Settings'
+  },
+  {
+    href: '/adminPanel/logout',
+    icon: ExitToAppIcon,
+    title: 'Logout'
   }
 ];
 
+
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
+  let history = useHistory();
   const location = useLocation();
+  if (!localStorage.getItem('adminLogin')) {
+    history.push("./login");
+  }
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -111,6 +124,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
               icon={item.icon}
             />
           ))}
+
         </List>
       </Box>
       <Box sx={{ flexGrow: 1 }} />

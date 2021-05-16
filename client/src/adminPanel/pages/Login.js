@@ -1,7 +1,7 @@
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
-import * as Yup from 'yup';
-import { Formik } from 'formik';
+import { Link as RouterLink } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import * as Yup from "yup";
+import { Formik } from "formik";
 import {
   Box,
   Button,
@@ -9,40 +9,75 @@ import {
   Grid,
   Link,
   TextField,
-  Typography
-} from '@material-ui/core';
-import FacebookIcon from '../icons/Facebook';
-import GoogleIcon from '../icons/Google';
+  Typography,
+} from "@material-ui/core";
+import {useHistory} from 'react-router-dom';
 
 const Login = () => {
-  const navigate = useNavigate();
+
+  let history = useHistory();
 
   return (
     <>
       <Helmet>
-        <title>Login | Material Kit</title>
+        <title>Badanti Service | Login</title>
       </Helmet>
       <Box
         sx={{
-          backgroundColor: 'background.default',
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100%',
-          justifyContent: 'center'
+          backgroundColor: "background.default",
+          display: "flex",
+          flexDirection: "column",
+          height: "100%",
+          justifyContent: "center",
         }}
       >
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: 'demo@devias.io',
-              password: 'Password123'
+              email: "",
+              password: "",
             }}
+
+            validate={values => {
+              const errors = {};
+              if (values.email == "admin@gmail.com") {
+                if (values.password == "admin") {
+                  console.log("login");
+                } else {
+                  console.log("incorrect password")
+                  errors.password = 'incorrect password';
+                }
+              } else {
+                console.log("incorrect email");
+                errors.email = 'incorrect email';
+              }
+              return errors;
+            }}
+
+
             validationSchema={Yup.object().shape({
-              email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-              password: Yup.string().max(255).required('Password is required')
+              email: Yup.string()
+                .email("Must be a valid email")
+                .max(255)
+                .required("Email is required"),
+              password: Yup.string().max(255).required("Password is required"),
             })}
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
+
+            onSubmit={(values, { setSubmitting }) => {
+              setTimeout(() => {
+                if (values.email == "admin@gmail.com") {
+                  if (values.password == "admin") {
+                    console.log("login");
+                    localStorage.setItem('adminLogin', true);
+                    history.push("./");
+                  } else {
+                    console.log("incorrect password");
+                  }
+                } else {
+                  console.log("incorrect email");
+                }
+                setSubmitting(false);
+              }, 400);
             }}
           >
             {({
@@ -52,75 +87,25 @@ const Login = () => {
               handleSubmit,
               isSubmitting,
               touched,
-              values
+              values,
             }) => (
               <form onSubmit={handleSubmit}>
                 <Box sx={{ mb: 3 }}>
-                  <Typography
-                    color="textPrimary"
-                    variant="h2"
-                  >
-                    Sign in
+                  <div className="textCenter">
+                  <Typography color="textPrimary" variant="h2">
+                    Badanti Service
                   </Typography>
                   <Typography
                     color="textSecondary"
                     gutterBottom
-                    variant="body2"
+                    variant="h5"
                   >
-                    Sign in on the internal platform
+                    Admin Sign in
                   </Typography>
+
+                  </div>
                 </Box>
-                <Grid
-                  container
-                  spacing={3}
-                >
-                  <Grid
-                    item
-                    xs={12}
-                    md={6}
-                  >
-                    <Button
-                      color="primary"
-                      fullWidth
-                      startIcon={<FacebookIcon />}
-                      onClick={handleSubmit}
-                      size="large"
-                      variant="contained"
-                    >
-                      Login with Facebook
-                    </Button>
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    md={6}
-                  >
-                    <Button
-                      fullWidth
-                      startIcon={<GoogleIcon />}
-                      onClick={handleSubmit}
-                      size="large"
-                      variant="contained"
-                    >
-                      Login with Google
-                    </Button>
-                  </Grid>
-                </Grid>
-                <Box
-                  sx={{
-                    pb: 1,
-                    pt: 3
-                  }}
-                >
-                  <Typography
-                    align="center"
-                    color="textSecondary"
-                    variant="body1"
-                  >
-                    or login with email address
-                  </Typography>
-                </Box>
-                <TextField
+                <TextField  
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
                   helperText={touched.email && errors.email}
@@ -158,20 +143,6 @@ const Login = () => {
                     Sign in now
                   </Button>
                 </Box>
-                <Typography
-                  color="textSecondary"
-                  variant="body1"
-                >
-                  Don&apos;t have an account?
-                  {' '}
-                  <Link
-                    component={RouterLink}
-                    to="/register"
-                    variant="h6"
-                  >
-                    Sign up
-                  </Link>
-                </Typography>
               </form>
             )}
           </Formik>

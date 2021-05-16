@@ -13,7 +13,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { baseURL } from "../../api";
 
 function Posting_form() {
-  const { isAuthenticated } = useAuth0();
 
   let history = useHistory();
 
@@ -84,7 +83,11 @@ function Posting_form() {
 
   const [open, setOpen] = React.useState(false);
 
-  if (!isAuthenticated) {
+  let isLoggedIn = sessionStorage.getItem("isLoggedIn");
+
+  console.log(isLoggedIn);
+
+  if (!isLoggedIn) {
     return (
       <>
         <Navbar fixed="top" />

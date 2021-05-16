@@ -12,6 +12,8 @@ import Dashboard from './adminPanel/pages/Dashboard';
 import CustomerList from './adminPanel/pages/CustomerList';       
 import SettingsView from './adminPanel/pages/Settings';       
 import Ads from './adminPanel/pages/Ads';       
+import Login from './adminPanel/pages/Login';       
+import Logout from './adminPanel/pages/Logout';       
 import { Fragment,React } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import NotFound from "./containers/notFound/index"
@@ -37,6 +39,8 @@ const App = () => {
           <Route exact path="/signin" component={Signin} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/adminPanel" component={Dashboard} />
+          <Route exact path="/adminPanel/login" component={Login} />
+          <Route exact path="/adminPanel/logout" component={Logout} />
           <Route exact path="/adminPanel/customers" component={CustomerList} />
           <Route exact path="/adminPanel/settings" component={SettingsView} />
           <Route exact path="/adminPanel/ads" component={Ads} />

@@ -78,6 +78,24 @@ app.get("/view_ad/:id", (req, res) => {
 });
 
 // profile view Ad
+app.get("/filters/", (req, res) => {
+	let ageRange = req.query.ageRange;
+    let gender = req.query.gender;
+    let location = req.query.location;
+	console.log(ageRange);
+	console.log(location);
+	console.log(gender);
+	// Ad.find({ "gender" : gender })
+	Ad.find({ "age_range": ageRange , "gender" : gender , "country" : location })
+		.then((proAd) => {
+			// Return Array
+			res.json(proAd);
+			console.log(proAd);
+		})
+		.catch((err) => console.log('Err ', err));
+});
+
+// profile view Ad
 app.get("/profile/:user_id", (req, res) => {
 	const user_id = req.params.user_id;
 	console.log(user_id);

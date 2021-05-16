@@ -8,13 +8,14 @@ import Fab from "@material-ui/core/Fab";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import Zoom from "@material-ui/core/Zoom";
 import {
-    BrowserRouter as Router,
-    Route,
-    NavLink
-  } from "react-router-dom";
-
+  BrowserRouter as Router,
+  Route,
+  NavLink
+} from "react-router-dom";
 import TitlebarGridList from '../Card/index.jsx';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useHistory } from "react-router-dom";
+
 
 
 
@@ -67,9 +68,41 @@ ScrollTop.propTypes = {
 };
 
 function Navbar(props) {
-  const { loginWithRedirect } = useAuth0();
-  const { logout } = useAuth0();
-  const { isAuthenticated } = useAuth0();
+
+  let history = useHistory();
+
+  function logout() {
+    console.log("click");
+    sessionStorage.removeItem("isLoggedIn");
+    history.push("");
+  }
+
+  var navBtn;
+  let isLoggedIn = sessionStorage.getItem("isLoggedIn");
+
+  console.log(isLoggedIn);
+
+  if (isLoggedIn) {
+    navBtn =
+      <>
+        <li className="nav-item">
+          <NavLink className="nav-link" to={`/Profile/${sessionStorage.getItem("user_id")}`}>Profile</NavLink>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link" onClick={logout}>logout</a>
+        </li>
+      </>
+  } else {
+    navBtn =
+      <>
+        <li className="nav-item">
+          <NavLink className="nav-link" to="/signin">Signin</NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className="nav-link" to="/signup">Signup</NavLink>
+        </li>
+      </>
+  }
 
   return (
     <React.Fragment>
@@ -81,11 +114,12 @@ function Navbar(props) {
         <div className="">
           <ul className="navbar-nav">
             <li className="nav-item active">
-                <NavLink className="nav-link mbNone" to="/">Home</NavLink>                 
+              <NavLink className="nav-link mbNone" to="/">Home</NavLink>
             </li>
             <li className="nav-item">
-                <NavLink className="nav-link" to="/post_ad">Post Ad</NavLink>
+              <NavLink className="nav-link" to="/post_ad">Post Ad</NavLink>
             </li>
+            {/* 
             {isAuthenticated && (
             <li className="nav-item">
                 <NavLink className="nav-link" to={`/Profile/${sessionStorage.getItem("user_id")}`}>Profile</NavLink>
@@ -104,10 +138,10 @@ function Navbar(props) {
                 </a>
 
                 )}
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/adminPanel">Admin Panel</NavLink>
-            </li>
+            </li> */}
+            {localStorage.removeItem("user_id")}
+            {navBtn}
+
           </ul>
         </div>
       </nav>

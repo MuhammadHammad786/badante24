@@ -98,7 +98,8 @@ function LatestOrders() {
     })
 
   }
-  // delete ad
+  
+  // Reject ad
   const handleReject = (Ad_id) => {
     console.log(Ad_id);
 
@@ -110,7 +111,7 @@ function LatestOrders() {
       cancelButtonColor: '#d33',
       showCloseButton: true,
       showCancelButton: true,
-      confirmButtonText: 'Yes Delete it!'
+      confirmButtonText: 'Yes Reject it!'
     }).then((result) => {
       if (result.isConfirmed) {
         axios.get(`${baseURL}/rejectAd/${Ad_id}`);

@@ -31,7 +31,7 @@ function AccountProfile (props){
     >
       
       <Avatar
-        src={user.picture}
+        src={sessionStorage.getItem("user_pic")}
         sx={{
           height: 100,
           width: 100
@@ -42,13 +42,13 @@ function AccountProfile (props){
         gutterBottom
         variant="h3"
       >
-        {user.name}
+        {sessionStorage.getItem("user_name")}
       </Typography>
       <Typography
         color="textSecondary"
         variant="body1"
       >
-        {user.email}
+        {sessionStorage.getItem("user_email")}
       </Typography>
       <Typography
         color="textSecondary"

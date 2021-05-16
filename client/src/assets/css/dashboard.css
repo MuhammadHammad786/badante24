@@ -35,6 +35,12 @@ header .MuiToolbar-root
     height: 64px;
 }
 
+.textCenter
+{
+    text-align: center;
+    margin-top: 10%;
+}
+
 
 
 @media(max-width:1250px)
