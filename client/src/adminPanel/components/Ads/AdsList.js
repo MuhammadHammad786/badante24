@@ -44,13 +44,13 @@ function LatestOrders() {
   const [RejectChange, setRejectChange] = useState(false);
 
   useEffect(async () => {
-    const result = await axios.get(`${baseURL}/`);
+    const result = await axios.get(`${baseURL}/all_ads/`);
     setItems(result.data);
     setLoading(true);
   }, []);
 
   useEffect(async () => {
-    const result = await axios.get(`${baseURL}/`);
+    const result = await axios.get(`${baseURL}/all_ads/`);
     setItems(result.data);
     setLoading(true);
   }, [DeleteChange] || [ApproveChange] || [RejectChange]);
