@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Ad = require('../model/');
+const Ad = require('./model/');
 const cors = require('cors');
 const multer = require('multer');
 
