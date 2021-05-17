@@ -56,7 +56,7 @@ app.post('/create_ad', (req, res) => {
 
 
 // GET
-app.get('/', function (req, res) {
+app.get('/all_ads', function (req, res) {
 	Ad.find({})
 		.then((ad) => {
 			// Return Array
