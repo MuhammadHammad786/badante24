@@ -15,6 +15,7 @@ import {
 import TitlebarGridList from '../Card/index.jsx';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useHistory } from "react-router-dom";
+import logo from "../../assets/images/logo.png"
 
 
 
@@ -99,7 +100,7 @@ function Navbar(props) {
           <NavLink className="nav-link" to="/signin">Signin</NavLink>
         </li>
         <li className="nav-item">
-          <NavLink className="nav-link" to="/signup">Signup</NavLink>
+          <NavLink className="nav-link" to="/signup">Register</NavLink>
         </li>
       </>
   }
@@ -109,7 +110,9 @@ function Navbar(props) {
       <CssBaseline />
 
       <nav className="navbar navbar-light">
-        <NavLink className="navbar-brand" to="/"> <b>Badanti Service</b> </NavLink>
+        <NavLink className="navbar-brand" to="/">
+          <img src={logo} alt="badante 24" className="logo"/>
+        </NavLink>
 
         <div className="">
           <ul className="navbar-nav">

@@ -6,7 +6,7 @@ import React, { useEffect, useState, Fragment } from "react";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useHistory,Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -92,7 +92,7 @@ function Posting_form() {
       <>
         <Navbar fixed="top" />
         <div className="emptyPage">
-          <h2 className="noFound">Please Login To Continue</h2>
+          <h2 className="noFound">Please <Link to="/signin">Login</Link> To Continue</h2>
         </div>
         <Footer />
       </>
@@ -107,7 +107,7 @@ function Posting_form() {
       <div className="wrapper">
         <section className="signForm bgFFF">
           <div className="col-sm-9 m-auto">
-            <h2 className="logo">Badenti Services</h2>
+            <h2>Badenti Services</h2>
             <p className="bold">Post Ad</p>
             <form onSubmit={(e) => onSubmit(e)} encType="multipart/form-data">
               <div className="outlineBox">

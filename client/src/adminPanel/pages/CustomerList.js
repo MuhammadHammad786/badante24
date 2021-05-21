@@ -22,7 +22,7 @@ const CustomerList = () => (
           }}
         >
           <Container maxWidth={false}>
-            <CustomerListToolbar />
+            {/* <CustomerListToolbar /> */}
             <Box sx={{ pt: 3 }}>
               <CustomerListResults customers={customers} />
             </Box>

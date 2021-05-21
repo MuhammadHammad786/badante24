@@ -1,5 +1,5 @@
 import 'react-perfect-scrollbar/dist/css/styles.css';
-import { useRoutes,Switch,Route } from 'react-router-dom';
+import { Switch,Route } from 'react-router-dom';
 import './adminPanel/mixins/chartjs';
 import Home from './containers/Home/index.jsx';
 import Posting_form from'./containers/post_ad/index.jsx';
@@ -15,27 +15,21 @@ import Ads from './adminPanel/pages/Ads';
 import Login from './adminPanel/pages/Login';       
 import Logout from './adminPanel/pages/Logout';       
 import { Fragment,React } from 'react';
-import { useAuth0 } from "@auth0/auth0-react";
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import NotFound from "./containers/notFound/index"
+
 
 
 const App = () => {
 
-  const { user, isAuthenticated } = useAuth0();
-  
-  if(isAuthenticated)
-  {
-    sessionStorage.setItem("user_id", user.sub);
-    sessionStorage.setItem("user_pic", user.picture);
-  }
   return (
       <div>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/post_ad" component={Posting_form} />
           <Route exact path="/edit_ad/:id" component={Edit_ad} />
-          <Route path="/ad_detail/:id" component={Ad_detail} />
-          <Route path="/profile/:user_id" component={Profile} />
+          <Route exact path="/ad_detail/:id" component={Ad_detail} />
+          <Route exact path="/profile/:user_id" component={Profile} />
           <Route exact path="/signin" component={Signin} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/adminPanel" component={Dashboard} />
@@ -51,3 +45,20 @@ const App = () => {
 };
 
 export default App;
+// Badante24 changes and missing things:
+
+// 1. Logo
+// 2. Sign in / Signup/Register
+// 3. Please Login To Continue ( Login ko link day din, ya login ko button shape ma lay ae )
+// 4.Flag picture 
+// 5. adminPanel
+// i. Total Ads (should be dynamic) 
+// ii. Users?
+// iii. Update password is not working
+// iv. admin login page: "Sign in now replace" to "Enter to the dashboard" and blew link for the client website
+// v.  white screen after logout, ads
+// 6. No profile showing in the chroom but showing in incongito
+// 7. Ads
+// i. Ads card ( location, contact, and joining date i.e Posted 3 months ago )
+// ii. Upload multiple photos in the ad
+// iii. Similar Ads below ad details

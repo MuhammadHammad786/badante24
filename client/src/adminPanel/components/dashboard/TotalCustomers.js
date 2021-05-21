@@ -9,9 +9,19 @@ import {
 import { green } from '@material-ui/core/colors';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import PeopleIcon from '@material-ui/icons/PeopleOutlined';
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { baseURL } from "../../../api";
 
 
 function TotalCustomers() {
+
+  const [items, setItems] = useState([]);
+  
+  useEffect(async () => {
+    const result = await axios.get(`${baseURL}/all_users`);
+    setItems(result.data);
+  }, []);
 
   return(
     <Card>
@@ -33,7 +43,7 @@ function TotalCustomers() {
             color="textPrimary"
             variant="h3"
           >
-            1,600
+            { items.length }
           </Typography>
         </Grid>
         <Grid item>

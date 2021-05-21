@@ -17,7 +17,7 @@ function Budget() {
   const [items, setItems] = useState([]);
   
   useEffect(async () => {
-    const result = await axios.get(`${baseURL}/`);
+    const result = await axios.get(`${baseURL}/all_ads`);
     setItems(result.data);
   }, []);
 

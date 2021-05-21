@@ -140,7 +140,7 @@ const Login = () => {
                     type="submit"
                     variant="contained"
                   >
-                    Sign in now
+                    Enter to the dashboard
                   </Button>
                 </Box>
               </form>

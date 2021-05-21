@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -16,8 +15,19 @@ import {
   Typography
 } from '@material-ui/core';
 import getInitials from '../../utils/getInitials';
+import axios from "axios";
+import React, { useState , useEffect } from "react";
+import { baseURL } from "../../../api";
 
 const CustomerListResults = ({ customers, ...rest }) => {
+
+  const [items, setItems] = useState([]);
+  
+  useEffect(async () => {
+    const result = await axios.get(`${baseURL}/all_users`);
+    setItems(result.data);
+  }, []);
+
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -86,28 +96,23 @@ const CustomerListResults = ({ customers, ...rest }) => {
                 <TableCell>
                   Email
                 </TableCell>
-                <TableCell>
-                  Location
-                </TableCell>
-                <TableCell>
-                  Phone
-                </TableCell>
+
                 <TableCell>
                   Registration date
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.slice(0, limit).map((customer) => (
+              {items.map((customer) => (
                 <TableRow
                   hover
                   key={customer.id}
-                  selected={selectedCustomerIds.indexOf(customer.id) !== -1}
+                  selected={selectedCustomerIds.indexOf(customer._id) !== -1}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.id)}
+                      checked={selectedCustomerIds.indexOf(customer._id) !== -1}
+                      onChange={(event) => handleSelectOne(event, customer._id)}
                       value="true"
                     />
                   </TableCell>
@@ -136,13 +141,7 @@ const CustomerListResults = ({ customers, ...rest }) => {
                     {customer.email}
                   </TableCell>
                   <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
-                  </TableCell>
-                  <TableCell>
-                    {customer.phone}
-                  </TableCell>
-                  <TableCell>
-                    {moment(customer.createdAt).format('DD/MM/YYYY')}
+                    {moment(customer.registerDate).format('DD/MM/YYYY')}
                   </TableCell>
                 </TableRow>
               ))}
