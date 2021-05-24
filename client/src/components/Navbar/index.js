@@ -13,7 +13,6 @@ import {
   NavLink
 } from "react-router-dom";
 import TitlebarGridList from '../Card/index.jsx';
-import { useAuth0 } from '@auth0/auth0-react';
 import { useHistory } from "react-router-dom";
 import logo from "../../assets/images/logo.png"
 

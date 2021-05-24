@@ -1,4 +1,4 @@
-import { Link as RouterLink } from "react-router-dom";
+import { Link , useHistory } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import * as Yup from "yup";
 import { Formik } from "formik";
@@ -7,15 +7,24 @@ import {
   Button,
   Container,
   Grid,
-  Link,
   TextField,
   Typography,
 } from "@material-ui/core";
-import {useHistory} from 'react-router-dom';
+import React, { useState } from "react";
+import axios from "axios";
+import { baseURL } from "../../api";
+import Alert from '@material-ui/lab/Alert';
 
 const Login = () => {
 
   let history = useHistory();
+
+  const [LoginStatus, setLoginStatus] = useState("");
+
+  if(LoginStatus){
+    var alertMsg =
+    <Alert severity="error">{LoginStatus}</Alert> 
+  }
 
   return (
     <>
@@ -38,21 +47,21 @@ const Login = () => {
               password: "",
             }}
 
-            validate={values => {
-              const errors = {};
-              if (values.email == "admin@gmail.com") {
-                if (values.password == "admin") {
-                  console.log("login");
-                } else {
-                  console.log("incorrect password")
-                  errors.password = 'incorrect password';
-                }
-              } else {
-                console.log("incorrect email");
-                errors.email = 'incorrect email';
-              }
-              return errors;
-            }}
+            // validate={values => {
+            //   const errors = {};
+            //   if (values.email == "admin@gmail.com") {
+            //     if (values.password == "admin") {
+            //       console.log("login");
+            //     } else {
+            //       console.log("incorrect password")
+            //       errors.password = 'incorrect password';
+            //     }
+            //   } else {
+            //     console.log("incorrect email");
+            //     errors.email = 'incorrect email';
+            //   }
+            //   return errors;
+            // }}
 
 
             validationSchema={Yup.object().shape({
@@ -64,20 +73,21 @@ const Login = () => {
             })}
 
             onSubmit={(values, { setSubmitting }) => {
-              setTimeout(() => {
-                if (values.email == "admin@gmail.com") {
-                  if (values.password == "admin") {
-                    console.log("login");
-                    localStorage.setItem('adminLogin', true);
-                    history.push("./");
+              axios
+                .post(`${baseURL}/adminLogin`, {
+                  adminEmail: values.email,
+                  adminPassword: values.password,
+                })
+                .then((response) => {
+                  console.log(response);
+                  if (response.data.message) {
+                    setLoginStatus(response.data.message);
                   } else {
-                    console.log("incorrect password");
+                    console.log("login");
+                    localStorage.setItem('adminLogin',true);
+                    history.push("./");
                   }
-                } else {
-                  console.log("incorrect email");
-                }
-                setSubmitting(false);
-              }, 400);
+                });
             }}
           >
             {({
@@ -92,20 +102,28 @@ const Login = () => {
               <form onSubmit={handleSubmit}>
                 <Box sx={{ mb: 3 }}>
                   <div className="textCenter">
-                  <Typography color="textPrimary" variant="h2">
-                    Badanti Service
+                    <Typography color="textPrimary" variant="h2">
+                      Badanti Service
                   </Typography>
-                  <Typography
-                    color="textSecondary"
-                    gutterBottom
-                    variant="h5"
-                  >
-                    Admin Sign in
+                    <Typography
+                      color="textSecondary"
+                      gutterBottom
+                      variant="h5"
+                    >
+                      Admin Sign in
                   </Typography>
 
                   </div>
                 </Box>
-                <TextField  
+                    <Typography
+                      gutterBottom
+                      variant="h6"
+                      className="danger"
+                    >
+                      
+                      {alertMsg}
+                  </Typography>
+                <TextField
                   error={Boolean(touched.email && errors.email)}
                   fullWidth
                   helperText={touched.email && errors.email}
@@ -134,7 +152,7 @@ const Login = () => {
                 <Box sx={{ py: 2 }}>
                   <Button
                     color="primary"
-                    disabled={isSubmitting}
+                    // disabled={isSubmitting}
                     fullWidth
                     size="large"
                     type="submit"
@@ -146,6 +164,7 @@ const Login = () => {
               </form>
             )}
           </Formik>
+          <Link to='/'>Go back to client side</Link>
         </Container>
       </Box>
     </>

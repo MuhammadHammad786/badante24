@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
 const Ad = require("./model/");
 const user = require("./model/user");
+const adminLogin = require("./model/adminLogin");
 const cors = require("cors");
-const cookieParser = require("cookie-parser");
-const session = require("express-session");
 const bcrypt = require("bcrypt");
 const saltRounds = 10
 
@@ -30,6 +29,7 @@ app.use(
     origin: "*",
   })
 );
+
 app.use(express.json());
 app.set("port", process.env.PORT || 4000);
 
@@ -71,7 +71,6 @@ app.get("/all_ads", function (req, res) {
     })
     .catch((err) => console.log("Err ", err));
 });
-
 
 // top 4 ads
 app.get("/top_ads", function (req, res) {
@@ -273,6 +272,47 @@ app.get("/all_users", function (req, res) {
       res.json(ad);
     })
     .catch((err) => console.log("Err ", err));
+});
+
+// adminlogin
+app.post("/adminLogin", (req, res) => {
+  const adminEmail = req.body.adminEmail;
+  const adminPassword = req.body.adminPassword;
+  adminLogin.find({ adminEmail: adminEmail })
+  .then((adminResult) => {
+    console.log(adminResult);
+    // Return Array
+    if(adminResult.length > 0){
+      bcrypt.compare(adminPassword,adminResult[0].adminPassword,(error, response) => {
+        if(response){
+          res.send(adminResult);
+        }else{
+          res.send({ message: "Incorrect Password"})
+        }
+      })
+    }else{
+      res.send({ message: "Incorrect Email"})
+    }
+  })
+  .catch((err) => {
+    console.log("Err ", err);
+    res.send({err:err});
+  });
+    
+});
+
+// updateAdminPass
+app.post("/updateAdminPass", (req, res) => {
+
+  password = req.body.password;
+  bcrypt.hash(password,saltRounds,(err,hash)=>{
+    
+    adminLogin.findOneAndUpdate({adminEmail: "admin@gmail.com"}, {$set: {adminPassword: hash }}, {new: true}, function(err,doc) {
+      if (err) { throw err; res.send({message: "something went wrong"})}
+      else { console.log("Updated"); res.send(doc)}
+    });  
+  })
+
 });
 
 if (process.env.NODE_ENV == "production") {

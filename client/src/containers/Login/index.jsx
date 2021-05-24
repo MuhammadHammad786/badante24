@@ -45,7 +45,6 @@ const Signin = () => {
   const [loginStatus, setLoginStatus] = useState("");
   const login = (e) => {
     e.preventDefault();
-    console.log("work");
     axios
       .post(`${baseURL}/login`, {
         email: email,
